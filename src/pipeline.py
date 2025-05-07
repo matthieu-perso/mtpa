@@ -5,6 +5,7 @@ from typing import Dict, Any
 
 from src.ingestion.loader import load_dataset_hf
 from src.preprocessing.normalization import normalize
+from src.preprocessing.processing import process_combined_dataset
 #from src.transformation.transform import transform
 
 class DatasetPipeline:
@@ -24,6 +25,7 @@ class DatasetPipeline:
         print(f"Processing dataset: {self.dataset_name}")
         
         raw = load_dataset_hf(self.config)
+
         normed = raw.map(lambda ex: normalize(ex, self.config))
         #transformed = normed.map(transform)
         return normed

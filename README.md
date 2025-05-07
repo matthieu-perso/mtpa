@@ -5,11 +5,10 @@ This repository accompanies the paper submitted to NeurIPS 2025, focusing on a u
 ## Project Structure
 
 ```
-my-benchmark/
-├── datasets/                  # Raw and processed data
-├── src/                      # Core transformation and processing code
-├── configs/                  # YAML or JSON config files per dataset
-├── unified_schema/           # Definition of the unified data format
+GPME/
+├── src/                      # Transformation and processing code
+├── configs/                  # YAML files per dataset
+├── schema/           # Definition of the unified data format
 ├── examples/                 # Sample usage scripts or notebooks
 ├── scripts/                  # CLI tools for automation
 ├── evaluation/              # Evaluation pipeline and metrics

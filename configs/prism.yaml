@@ -1,12 +1,24 @@
-name: "prism_conversations"
-source: "HannahRoseKirk/prism-alignment"
-subset: "conversations"
-split: "train"               # if unspecified, HF will default to 'train'
-input_column: "text"         # check HuggingFace page for actual column name
-label_column: "stance"       # or whatever label column you want
-task_type: "classification"
+name: "prism_merged"
+type: "merge"
+merge_key: "user_id"
+merge_sources:
+  - name: "survey"
+    source: "HannahRoseKirk/prism-alignment"
+    subset: "survey"
+    keep_columns: ["user_id", "response", "alignment"]
+  - name: "utterances"
+    source: "HannahRoseKirk/prism-alignment"
+    subset: "utterances"
+    keep_columns: ["user_id", "utterance", "stance"]
 
-# Optional — only if labels are string and you want to map to ints
-label_mapping:
-  agree: 1
-  disagree: 0
+mappings:
+  task_type: "classification"
+  prompt: "merge(survey.response, utterances.utterance)"
+  split: "train"
+  annotation:
+    type: "classification"
+    value: "utterances.stance"
+  user_profile:
+    preferences:
+      freeform_text: "survey.response"
+    interaction_history: "merge_metadata(user_id)"
