@@ -39,7 +39,7 @@ datasets/*/raw/
 datasets/*/processed/
 *.csv
 *.parquet
-*.json
+# *.json
 *.jsonl
 *.gz
 *.zip

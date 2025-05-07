@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GPME Schema",
+  "description": "Schema for an entry in the user-aligned classification benchmark",
+  "type": "object",
+  "required": [
+    "task_type",
+    "prompt",
+    "split",
+    "annotation",
+    "user_profile"
+  ],
+  "properties": {
+    "task_type": {
+      "type": "string"
+    },
+    "prompt": {
+      "type": "string"
+    },
+    "split": {
+      "type": "string",
+      "enum": ["train", "test", "validation"]
+    },
+
+    "annotation": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "classification",
+            "generation",
+            "span",
+            "ranking",
+            "boolean"
+          ],
+          "description": "The type of task or expected label format"
+        },
+        "value": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "array", "items": { "type": "string" } },
+            { "type": "boolean" },
+            { "type": "number" }
+          ],
+          "description": "The label or expected output"
+        },
+        "choices": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Optional: candidate answers for classification or ranking"
+        }
+      }
+    },
+
+    "user_profile": {
+      "type": "object",
+      "properties": {
+        "preferences": {
+          "type": "object",
+          "properties": {
+            "pairwise": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["preferred", "over"],
+                "properties": {
+                  "preferred": { "type": "string" },
+                  "over": { "type": "string" }
+                }
+              }
+            },
+            "scored": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["item", "score"],
+                "properties": {
+                  "item": { "type": "string" },
+                  "score": { "type": "number" }
+                }
+              }
+            },
+            "categorical": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "ranked_lists": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ranking": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "dimension": {
+                    "type": "string"
+                  }
+                },
+                "required": ["ranking"]
+              }
+            },
+            "freeform_text": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "interaction_history": {
+          "type": "array",
+          "items": { "type": "object" } 
+        }
+      }
+    }
+  }
+}
