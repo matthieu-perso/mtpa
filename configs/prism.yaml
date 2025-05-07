@@ -1,0 +1,12 @@
+name: "prism_conversations"
+source: "HannahRoseKirk/prism-alignment"
+subset: "conversations"
+split: "train"               # if unspecified, HF will default to 'train'
+input_column: "text"         # check HuggingFace page for actual column name
+label_column: "stance"       # or whatever label column you want
+task_type: "classification"
+
+# Optional — only if labels are string and you want to map to ints
+label_mapping:
+  agree: 1
+  disagree: 0
