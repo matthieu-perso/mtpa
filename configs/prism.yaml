@@ -5,20 +5,37 @@ merge_sources:
   - name: "survey"
     source: "HannahRoseKirk/prism-alignment"
     subset: "survey"
-    keep_columns: ["user_id", "response", "alignment"]
+    keep_columns: ["user_id", "employment_status", "education"]
   - name: "utterances"
     source: "HannahRoseKirk/prism-alignment"
     subset: "utterances"
-    keep_columns: ["user_id", "utterance", "stance"]
+    keep_columns: ["user_id", "model_response", "score", "user_prompt"]
 
 mappings:
-  task_type: "classification"
-  prompt: "merge(survey.response, utterances.utterance)"
+  task_type: "ranking"
+  prompt: "utterances.user_prompt"
+  output: "utterances.model_response"
   split: "train"
   annotation:
-    type: "classification"
-    value: "utterances.stance"
+    type: "ranking"
+    value: "utterances.score"
   user_profile:
-    preferences:
-      freeform_text: "survey.response"
-    interaction_history: "merge_metadata(user_id)"
+    characteristics:
+      - "survey.employment_status"
+      - "survey.education"
+    stated_preferences:
+      pairwise: []
+      scored: []
+      categorical: []
+      ranked_lists: []
+      freeform_text:
+        - "survey.response"
+        - "utterances.user_prompt"
+    observed_preferences:
+      click_data: []
+      chosen_options: []
+    behavior: "merge_metadata(user_id)"
+
+
+
+

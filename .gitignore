@@ -20,6 +20,10 @@ wheels/
 .installed.cfg
 *.egg
 
+
+results/
+
+
 # Jupyter Notebook
 .ipynb_checkpoints
 
