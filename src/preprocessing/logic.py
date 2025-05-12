@@ -20,8 +20,10 @@ def resolve(field, example):
         elif field.startswith("merge_metadata("):
             keys = field[15:-1].split(",")
             return {k.strip(): get_nested(example, k.strip()) for k in keys}
-        else:
+        elif "." in field:  # Only try to resolve as path if it contains a dot
             return get_nested(example, field)
+        else:
+            return field  # Return literal string value
     elif isinstance(field, list):
         return [resolve(f, example) for f in field]
     return field

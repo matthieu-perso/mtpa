@@ -12,7 +12,7 @@ merge_sources:
     keep_columns: ["user_id", "model_response", "score", "user_prompt"]
 
 mappings:
-  task_type: "ranking"
+  task_type: "classification"
   prompt: "utterances.user_prompt"
   output: "utterances.model_response"
   split: "train"
