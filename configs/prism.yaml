@@ -21,8 +21,8 @@ mappings:
     value: "utterances.score"
   user_profile:
     characteristics:
-      - "survey.employment_status"
-      - "survey.education"
+      employment_status: "survey.employment_status"
+      education: "survey.education"
     stated_preferences:
       pairwise: []
       scored: []

@@ -24,5 +24,5 @@ mappings:
       click_data: []
       chosen_options: []
     behavior:
-      - input: "profile.generated_prompt"
-        output: "profile.reviewText" 
+      template: "Generate the review text written by a reviewer who has a given overall rating of '{profile.overall}' for a product with description \"{profile.description}\". The summary of the review text is \"{profile.summary}\"."
+      output_field: "profile.reviewText" 

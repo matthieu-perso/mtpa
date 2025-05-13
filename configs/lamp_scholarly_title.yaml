@@ -1,7 +1,11 @@
-name: "longlamp_topic"
-source: "LongLaMP/LongLaMP"
-subset: "topic_writing_user"
+name: "lamp_scholarly_title"
+source: "LaMP_5"
 task_type: "generation"
+data_files:
+  train:
+    questions: "train/train_questions.json"
+    outputs: "train/train_outputs.json"
+base_url: "https://ciir.cs.umass.edu/downloads/LaMP/LaMP_5"
 
 mappings:
   task_type: "generation"
@@ -24,5 +28,5 @@ mappings:
       click_data: []
       chosen_options: []
     behavior:
-      input_field: "profile.summary"
-      output_field: "profile.content" 
+      input_field: "profile.abstract"
+      output_field: "profile.title" 
