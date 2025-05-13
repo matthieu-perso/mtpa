@@ -1,0 +1,28 @@
+name: "longlamp_topic"
+source: "LongLaMP/LongLaMP"
+subset: "topic_writing_user"
+task_type: "generation"
+
+mappings:
+  task_type: "generation"
+  prompt: "input"
+  output: "output"
+  split: "train"
+  annotation:
+    type: "generation"
+    value: "output"
+    choices: []
+  user_profile:
+    characteristics: {}
+    stated_preferences:
+      pairwise: []
+      scored: []
+      categorical: []
+      ranked_lists: []
+      freeform_text: []
+    observed_preferences:
+      click_data: []
+      chosen_options: []
+    behavior:
+      - input: "profile.summary"
+        output: "profile.content" 

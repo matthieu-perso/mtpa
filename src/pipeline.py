@@ -38,6 +38,23 @@ def process_merged_dataset(config):
     return results
 
 
+def process_single_dataset(config):
+    """Process a single (non-merged) dataset."""
+    # Load dataset
+    raw = load_dataset_hf(config)
+    
+    # Normalize each example
+    results = []
+    for idx, example in enumerate(raw):
+        try:
+            normalized = normalize(example, config)
+            if normalized:
+                results.append(normalized)
+        except Exception as e:
+            print(f"Error normalizing example {idx}: {e}")
+    return results
+
+
 def process_dataset(config_path):
     with open(config_path) as f:
         config = yaml.safe_load(f)
@@ -45,12 +62,13 @@ def process_dataset(config_path):
     if config.get("type") == "merge":
         return process_merged_dataset(config)
     else:
-        return process_dataset(config)
+        return process_single_dataset(config)
 
 
 class DatasetPipeline:
     def __init__(self, config_path: str):
         """Initialize the pipeline with a configuration file."""
+        self.config_path = config_path
         self.config = self._load_config(config_path)
         self.dataset_name = Path(config_path).stem
 
@@ -63,11 +81,7 @@ class DatasetPipeline:
     def run(self, save_results: bool = True):
         print(f"Processing dataset: {self.dataset_name}")
         
-        if self.config.get("type") == "merge":
-            results = process_merged_dataset(self.config)
-        else:
-            raw = load_dataset_hf(self.config)
-            #results = raw.map(lambda ex: normalize(ex, self.config))
+        results = process_dataset(self.config_path)
         
         if save_results:
             # Save results as JSON

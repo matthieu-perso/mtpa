@@ -1,0 +1,30 @@
+name: "civics"
+source: "CIVICS-dataset/CIVICS"
+split: "train"
+task_type: "classification"
+
+mappings:
+  task_type: "classification"
+  prompt: "Statement"
+  output: "Final Label"
+  split: "train"
+  annotation:
+    type: "classification"
+    value: "Final Label"
+    choices: []
+  user_profile:
+    characteristics:
+      language: "Language"
+      topic: "Topic"
+      organization_type: "Organization Type"
+      source: "Source"
+    stated_preferences:
+      pairwise: []
+      scored: []
+      categorical: []
+      ranked_lists: []
+      freeform_text: []
+    observed_preferences:
+      click_data: []
+      chosen_options: []
+    behavior: [] 

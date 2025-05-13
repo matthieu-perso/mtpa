@@ -1,0 +1,35 @@
+name: "helpsteer2"
+source: "nvidia/HelpSteer2"
+task_type: "generation"
+
+mappings:
+  task_type: "generation"
+  prompt: "prompt"
+  output: "response"
+  split: "train"
+  annotation:
+    type: "generation"
+    value: "response"
+    choices: []
+  user_profile:
+    characteristics: {}
+    stated_preferences:
+      pairwise: []
+      scored:
+        - item: "helpfulness"
+          score: "helpfulness"
+        - item: "correctness"
+          score: "correctness"
+        - item: "coherence"
+          score: "coherence"
+        - item: "complexity"
+          score: "complexity"
+        - item: "verbosity"
+          score: "verbosity"
+      categorical: []
+      ranked_lists: []
+      freeform_text: []
+    observed_preferences:
+      click_data: []
+      chosen_options: []
+    behavior: [] 
