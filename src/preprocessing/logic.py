@@ -28,6 +28,7 @@ def process_profile_behavior(behavior_config, profile_list):
     """Process profile behavior based on config."""
     results = []
     
+    # Handle template and input/output field cases
     for profile in profile_list:
         if "template" in behavior_config:
             # Handle product review case with template
@@ -41,6 +42,11 @@ def process_profile_behavior(behavior_config, profile_list):
             output_str = get_nested({"profile": profile}, behavior_config["output_field"])
             if input_str and output_str:
                 results.append({"input": input_str, "output": output_str})
+        elif "field" in behavior_config:
+            # Handle single field case
+            value = get_nested({"profile": profile}, behavior_config["field"])
+            if value:
+                results.append(value)
     
     return results
 
@@ -81,7 +87,7 @@ def resolve_single(field, example):
                 "item": field["item"],
                 "score": example.get(field["score"], 0)
             }
-        elif "template" in field or ("input_field" in field and "output_field" in field):
+        elif "template" in field or ("input_field" in field and "output_field" in field) or "field" in field:
             # Handle profile behavior
             profile_list = example.get("profile", [])
             return process_profile_behavior(field, profile_list)

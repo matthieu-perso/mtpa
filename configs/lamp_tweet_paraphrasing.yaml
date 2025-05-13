@@ -27,5 +27,5 @@ mappings:
     observed_preferences:
       click_data: []
       chosen_options: []
-    authored_texts:
-      - field: "profile.text" 
+    behavior:
+      field: "profile.text" 
