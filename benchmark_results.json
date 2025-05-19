@@ -1,0 +1,899 @@
+{
+  "gemma-3-4b-it": {
+    "accuracy": 0.8717948717948718,
+    "predictions": [
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Lebanon\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 43\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Canada\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 78\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Belarus\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 44\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: New Zealand\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: Missing; Not available\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Bulgaria\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 37\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Malaysia\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 49\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: North Macedonia\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 60\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Egypt\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 30\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Russia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 49\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Lebanon\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 65\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Iraq\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 36\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Greece\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 67\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Vietnam\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 38\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Guatemala\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 50\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Singapore\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 81\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 2.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Ecuador\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 27\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Venezuela\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 54\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 2.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Iran\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 44\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Iran\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 31\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Guatemala\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 18\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 2.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Poland\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 43\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Georgia\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 80\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Thailand\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 53\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Iceland\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 32\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Slovakia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 44\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Georgia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 69\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Chile\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 70\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Philippines\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 60\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Serbia\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 40\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Peru\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 57\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Armenia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 35\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Hong Kong SAR\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 57\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 2.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Vietnam\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 35\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Nicaragua\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 52\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Singapore\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 78\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Bulgaria\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 34\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Latvia\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 72\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 2.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: France\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 80\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Hungary\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 38\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      }
+    ]
+  },
+  "meta_llama": {
+    "accuracy": 0.7906976744186046,
+    "predictions": [
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: China\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 41\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Bangladesh\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 30\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Canada\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 50\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 4.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Poland\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 69\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Australia\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 26\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "2",
+        "actual": 1.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Albania\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 36\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Philippines\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 79\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Georgia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 23\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Czechia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 25\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Mexico\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 53\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Cyprus\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 70\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Ukraine\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 39\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Denmark\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 56\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Serbia\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 40\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Canada\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 38\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Portugal\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 71\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Lebanon\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 33\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Maldives\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 63\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Morocco\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 50\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Russia\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 64\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 3.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Ukraine\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 58\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Taiwan ROC\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 45\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Italy\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 81\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: 860\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 72\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "11",
+        "actual": 2.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Belarus\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 80\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "2",
+        "actual": 1.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Netherlands\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 23\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "2",
+        "actual": 2.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: France\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 24\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Armenia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 79\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Czechia\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 70\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Slovakia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 55\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Lebanon\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 40\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1 I",
+        "actual": 1.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Tajikistan\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 20\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 2.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Australia\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 29\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Georgia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 68\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Spain\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 31\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Iran\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 34\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Austria\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 69\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Zimbabwe\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 71\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Vietnam\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 62\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Philippines\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 35\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1A",
+        "actual": 1.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Puerto Rico\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 61\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Slovakia\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 66\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Nigeria\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 56\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "11",
+        "actual": 1.0,
+        "accuracy": 0.0
+      }
+    ]
+  },
+  "mistral": {
+    "accuracy": 0.8636363636363636,
+    "predictions": [
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Cyprus\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 33\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Denmark\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 19\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 4.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: France\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 51\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 2.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Ecuador\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 52\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 2.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Slovenia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 44\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Belarus\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 64\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Netherlands\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 27\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Slovakia\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 75\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 2.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Slovenia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 44\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Italy\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 76\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Egypt\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 41\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Japan\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 32\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Iceland\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 64\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Poland\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 27\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Puerto Rico\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 44\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Argentina\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 37\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Thailand\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 57\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Italy\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 73\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Greece\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 26\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Great Britain\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 18\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Turkey\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 47\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Guatemala\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 46\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Slovakia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 30\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Macao SAR\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 74\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Northern Ireland\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 44\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Serbia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 82\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: China\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 34\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Ecuador\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 31\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: North Macedonia\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 45\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Montenegro\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 45\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Denmark\n\nQ: What is your sex?\nA: -1\n\nQ: How old are you?\nA: No answer\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 2.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: North Macedonia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 63\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Greece\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 82\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Greece\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 54\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Iraq\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 30\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Lebanon\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 59\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Bolivia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 27\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Singapore\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 82\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Kenya\n\nQ: What is your sex?\nA: -1\n\nQ: How old are you?\nA: 18\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Tunisia\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 54\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Greece\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 32\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Puerto Rico\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 68\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Lithuania\n\nQ: What is your sex?\nA: Female\n\nQ: How old are you?\nA: 67\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 2.0,
+        "accuracy": 0.0
+      },
+      {
+        "prompt": "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value\u2014no explanations.\n\nGiven the following survey responses:\n\nQ: In what country was the interview conducted?\nA: Iran\n\nQ: What is your sex?\nA: Male\n\nQ: How old are you?\nA: 70\n\nPlease answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\nQ: On a scale of 1 to 4, 1 meaning 'Very important' and 4 meaning 'Not at all important', how important is family in your life?\nA: ",
+        "question_id": "importance_family",
+        "prediction": "1",
+        "actual": 1.0,
+        "accuracy": 1.0
+      }
+    ]
+  }
+}

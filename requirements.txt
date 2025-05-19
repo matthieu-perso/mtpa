@@ -13,3 +13,4 @@ datasets>=2.12.0
 pyreadstat
 google-genai
 anthropic
+bert_score
