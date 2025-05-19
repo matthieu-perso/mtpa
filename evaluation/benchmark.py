@@ -14,7 +14,8 @@ import anthropic
 # Set API keys from environment variables
 from dotenv import load_dotenv
 import os
-
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {device}")
 load_dotenv()  # Load environment variables from a .env file
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -26,6 +27,9 @@ anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
 
 # Initialize clients
 anthropic_client = anthropic.Anthropic(api_key=anthropic_api_key)
+
+# Set Hugging Face API key from environment variables
+hf_api_key = os.getenv("HF_API_KEY")
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', handlers=[
@@ -40,6 +44,12 @@ class SurveyBenchmark:
         self.input_questions = input_questions
         self.target_questions = target_questions
         self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        
+        # Load models and tokenizers once
+        self.phi3_model, self.phi3_tokenizer = self.load_huggingface_model("microsoft/Phi-3-mini-4k-instruct")
+        self.qwen_model, self.qwen_tokenizer = self.load_huggingface_model("Qwen/Qwen2-1.5B-Instruct")
+        self.meta_llama_model, self.meta_llama_tokenizer = self.load_huggingface_model("meta-llama/Llama-3.1-8B-Instruct")
+
         print(f"Loaded {len(self.data)} respondents")
         print(f"Input questions: {self.input_questions}")
         print(f"Target questions: {self.target_questions}")
@@ -50,7 +60,7 @@ class SurveyBenchmark:
             return json.load(f)
     
     def create_prompt(self, respondent: Dict, target_questions: list) -> str:
-        """Create a prompt from input questions and a list of target questions."""
+        """Create a prompt from input questions and a single target question."""
         prompt = (
             "You are to answer as if you are the following survey respondent. Use only the information provided below. Respond in the first person, and provide ONLY the answer value—no explanations.\n\n"
             "Given the following survey responses:\n\n"
@@ -59,12 +69,14 @@ class SurveyBenchmark:
         for q in respondent['data']:
             if q['question_id'] in self.input_questions:
                 prompt += f"Q: {q['question']}\nA: {q['answer_value']}\n\n"
-        # Add all value questions (with non-null answers) as targets
+        # Add only the first target question
         prompt += (
-            "Please answer the following questions as this respondent. Respond with ONLY the answer value for each, nothing else:\n\n"
+            "Please answer the following question as this respondent. Respond with ONLY the answer value, nothing else:\n\n"
         )
-        for q in respondent['data']:
-            if q['question_id'] in target_questions:
+        if target_questions:
+            qid = target_questions[0]  # Use only the first target question
+            q = next((q for q in respondent['data'] if q['question_id'] == qid), None)
+            if q:
                 prompt += f"Q: {q['question']}\nA: "
         return prompt
     
@@ -135,23 +147,19 @@ class SurveyBenchmark:
     
     def get_gpt4o_prediction(self, prompt: str) -> str:
         """Get prediction from GPT-4o."""
-        completion = self.client.chat.completions.create(
+        response = self.client.responses.create(
             model="gpt-4o",
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=50,
-            temperature=0.3
+            input=prompt
         )
-        return completion.choices[0].message.content
+        return response.output_text
     
     def get_gpt35_prediction(self, prompt: str) -> str:
         """Get prediction from GPT-3.5."""
-        completion = self.client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=50,
-            temperature=0.3
+        response = self.client.responses.create(
+            model="gpt-4o-mini-2024-07-18",
+            input=prompt
         )
-        return completion.choices[0].message['content']
+        return response.output_text
     
     def get_gemini_flash_prediction(self, prompt: str) -> str:
         """Get prediction from Gemini."""
@@ -167,15 +175,14 @@ class SurveyBenchmark:
         model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)
         
         # Check if CUDA is available and move model to GPU
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         model.to(device)
 
         inputs = tokenizer(prompt, return_tensors="pt").to(device)
-        attention_mask = inputs['attention_mask'] if 'attention_mask' in inputs else None
+        #attention_mask = inputs['attention_mask'] if 'attention_mask' in inputs else None
         outputs = model.generate(
             inputs["input_ids"],
-            attention_mask=attention_mask,  # Set attention mask
-            max_new_tokens=100,
+            #attention_mask=attention_mask,  # Set attention mask
+            max_new_tokens=3,
             num_return_sequences=1,
             temperature=0.7,
             do_sample=True,
@@ -195,33 +202,33 @@ class SurveyBenchmark:
         total_correct = 0
         for i, respondent in enumerate(sampled_respondents):
             logging.info(f"Processing respondent {i+1}/{num_samples}")
-            target_questions = [q['question_id'] for q in respondent['data'] if q['use_case'] == 'value' and q['answer_value'] is not None]
-            if not target_questions:
+            # Since we only have one question, we assume one target question per respondent
+            target_question = next((q for q in respondent['data'] if q['use_case'] == 'value' and q['answer_value'] is not None), None)
+            if not target_question:
                 continue
-            prompt = self.create_prompt(respondent, target_questions)
+            prompt = self.create_prompt(respondent, [target_question['question_id']])
             try:
-                prediction = prediction_function(prompt)
-                pred_answers = [a.strip() for a in prediction.strip().split('\n') if a.strip()]
-                for idx, qid in enumerate(target_questions):
-                    actual = next(q for q in respondent['data'] if q['question_id'] == qid)
-                    pred = pred_answers[idx] if idx < len(pred_answers) else ''
-                    acc = self.evaluate_prediction(pred, actual)
-                    total_correct += acc
-                    total_questions += 1
-                    results['predictions'].append({
-                        'prompt': prompt,
-                        'question_id': qid,
-                        'prediction': pred,
-                        'actual': actual['answer_value'],
-                        'accuracy': acc
-                    })
-                    logging.info({
-                        'prompt': prompt,
-                        'question_id': qid,
-                        'prediction': pred,
-                        'actual': actual['answer_value'],
-                        'accuracy': acc
-                    })
+                prediction = prediction_function(prompt).strip()
+                print(f"Prediction: {prediction}")
+                actual = target_question
+                pred = prediction
+                acc = self.evaluate_prediction(pred, actual)
+                total_correct += acc
+                total_questions += 1
+                results['predictions'].append({
+                    'prompt': prompt,
+                    'question_id': actual['question_id'],
+                    'prediction': pred,
+                    'actual': actual['answer_value'],
+                    'accuracy': acc
+                })
+                logging.info({
+                    'prompt': prompt,
+                    'question_id': actual['question_id'],
+                    'prediction': pred,
+                    'actual': actual['answer_value'],
+                    'accuracy': acc
+                })
             except Exception as e:
                 logging.error(f"Error processing respondent {i}: {str(e)}")
                 continue
@@ -248,8 +255,81 @@ class SurveyBenchmark:
         )
         return message.content
 
+    def load_huggingface_model(self, model_name: str):
+        """Load a Hugging Face model and tokenizer."""
+        tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+        model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)
+        model.to(device)
+        return model, tokenizer
+
+    def get_phi3_prediction(self, prompt: str) -> str:
+        return self.generate_prediction(prompt, self.phi3_model, self.phi3_tokenizer, clean_output_phi3)
+
+    def get_qwen_prediction(self, prompt: str) -> str:
+        return self.generate_prediction(prompt, self.qwen_model, self.qwen_tokenizer, clean_output_qwen)
+
+    def get_meta_llama_prediction(self, prompt: str) -> str:
+        return self.generate_prediction(prompt, self.meta_llama_model, self.meta_llama_tokenizer, clean_output_meta_llama)
+
+    def generate_prediction(self, prompt: str, model, tokenizer, clean_function) -> str:
+        inputs = tokenizer(prompt, return_tensors="pt").to(device)
+        outputs = model.generate(inputs["input_ids"], max_new_tokens=32)
+        text = tokenizer.batch_decode(outputs)[0]
+        return clean_function(text)
+
+    def run_huggingface_benchmark(self, prediction_function, num_samples: int = 50) -> Dict[str, float]:
+        """Run benchmark for a specific Hugging Face model with one target question."""
+        sampled_respondents = random.sample(self.data, num_samples)
+        results = {
+            'accuracy': 0.0,
+            'predictions': []
+        }
+        total_questions = 0
+        total_correct = 0
+        for i, respondent in enumerate(sampled_respondents):
+            logging.info(f"Processing respondent {i+1}/{num_samples}")
+            target_question = next((q for q in respondent['data'] if q['use_case'] == 'value' and q['answer_value'] is not None), None)
+            if not target_question:
+                continue
+            prompt = self.create_prompt(respondent, [target_question['question_id']])
+            try:
+                prediction = prediction_function(prompt)
+                pred = prediction.strip()
+                acc = self.evaluate_prediction(pred, target_question)
+                total_correct += acc
+                total_questions += 1
+                results['predictions'].append({
+                    'prompt': prompt,
+                    'question_id': target_question['question_id'],
+                    'prediction': pred,
+                    'actual': target_question['answer_value'],
+                    'accuracy': acc
+                })
+                logging.info({
+                    'prompt': prompt,
+                    'question_id': target_question['question_id'],
+                    'prediction': pred,
+                    'actual': target_question['answer_value'],
+                    'accuracy': acc
+                })
+            except Exception as e:
+                logging.error(f"Error processing respondent {i}: {str(e)}")
+                continue
+        results['accuracy'] = total_correct / total_questions if total_questions > 0 else 0.0
+        return results
+
+def clean_output_phi3(text: str) -> str:
+    return text.split('<|assistant|>')[-1].split('<|end|>')[0].strip()
+
+def clean_output_qwen(text: str) -> str:
+    return text.split('<im_start>assistant')[-1].split('<im_end>')[0].strip()
+
+def clean_output_meta_llama(text: str) -> str:
+    return text.split('<|start_header_id|>assistant|<end_header_id|>')[-1].split('<eot_id>')[0].strip()
+
 def main():
-    top10_demographic_ids = [
+    # Define input questions (top 10 demographic attributes)
+    input_questions = [
         'country',
         'age',
         'sex',
@@ -261,13 +341,31 @@ def main():
         'religion',
         'ethnicity',
     ]
+
+    # Define a single output question (target question)
+    output_questions = [
+        'importance_of_family'  # Replace with the actual question ID you want to target
+    ]
+
     benchmark = SurveyBenchmark(
         data_path='evaluation/merged_wvs_gss.json',
-        input_questions=top10_demographic_ids,
-        target_questions=[]  # Not used in new logic
+        input_questions=input_questions,
+        target_questions=output_questions
     )
 
     results = {}
+
+    print("\nBenchmarking Phi-3-mini-4k-instruct...")
+    results['phi3'] = benchmark.run_huggingface_benchmark(benchmark.get_phi3_prediction, num_samples=50)
+    print(f"\nAccuracy: {results['phi3']['accuracy']:.2f}")
+
+    print("\nBenchmarking Qwen2-1.5B-Instruct...")
+    results['qwen'] = benchmark.run_huggingface_benchmark(benchmark.get_qwen_prediction, num_samples=50)
+    print(f"\nAccuracy: {results['qwen']['accuracy']:.2f}")
+
+    print("\nBenchmarking Meta-Llama-3.1-8B-Instruct...")
+    results['meta_llama'] = benchmark.run_huggingface_benchmark(benchmark.get_meta_llama_prediction, num_samples=50)
+    print(f"\nAccuracy: {results['meta_llama']['accuracy']:.2f}")
 
     # Run benchmarks for API-based models separately
     print("\nBenchmarking gpt-4o via API...")
@@ -278,25 +376,9 @@ def main():
     results['gemini-2.0-flash'] = benchmark.run_benchmark_api(benchmark.get_gemini_flash_prediction, num_samples=50)
     print(f"\nAccuracy: {results['gemini-2.0-flash']['accuracy']:.2f}")
 
-    print("\nBenchmarking grok-3-latest via API...")
-    results['grok-3-latest'] = benchmark.run_benchmark_api(benchmark.get_grok_prediction, num_samples=50)
-    print(f"\nAccuracy: {results['grok-3-latest']['accuracy']:.2f}")
-
     print("\nBenchmarking claude-3-5-sonnet-latest via API...")
     results['claude-3-5-sonnet-latest'] = benchmark.run_benchmark_api(benchmark.get_anthropic_prediction, num_samples=50)
     print(f"\nAccuracy: {results['claude-3-5-sonnet-latest']['accuracy']:.2f}")
-
-    models = [
-        'meta-llama/Meta-Llama-3-8B-Instruct',
-        'Qwen/Qwen2-7B-Instruct',
-        'microsoft/phi-2',
-        'mistralai/Mistral-7B-Instruct-v0.2',
-    ]
-    for model in models:
-        print(f"\nBenchmarking {model}...")
-        results[model] = benchmark.run_benchmark(model, num_samples=50)
-        print(f"\nAccuracy: {results[model]['accuracy']:.2f}")
-
     # Save results
     output_path = Path('benchmark_results.json')
     with open(output_path, 'w') as f:
