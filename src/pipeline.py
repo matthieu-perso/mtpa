@@ -81,7 +81,17 @@ class DatasetPipeline:
     def run(self, save_results: bool = True):
         print(f"Processing dataset: {self.dataset_name}")
         
+<<<<<<< HEAD
         results = process_dataset(self.config_path)
+=======
+        if self.config.get("type") == "merge":
+            results = process_merged_dataset(self.config)
+        else:
+            raw = load_dataset_hf(self.config)
+            results = raw.map(lambda ex: normalize(ex, self.config))
+            # Convert Dataset to list of dictionaries
+            results = list(results)
+>>>>>>> 36e17b3 (feat: further additions)
         
         if save_results:
             # Save results as JSON

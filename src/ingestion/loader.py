@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import os
 import json
 from pathlib import Path
@@ -68,3 +69,14 @@ def load_dataset_hf(config: Dict[str, Any]):
         dataset_args["name"] = config["subset"]
         
     return load_dataset(**dataset_args)["train"]  # Default to train split
+=======
+import pandas as pd
+from datasets import load_dataset
+
+
+def load_csv_file(config):
+    return pd.read_csv(config["source"])
+
+def load_dataset_hf(config):
+    return load_dataset(config["source"], config["subset"], split=config.get("split", "train"))
+>>>>>>> 36e17b3 (feat: further additions)

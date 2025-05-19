@@ -58,6 +58,8 @@ def resolve_merged(field, example):
             return " ".join(str(get_nested(example, f.strip())) for f in fields if get_nested(example, f.strip()))
         elif field.startswith("merge_metadata("):
             keys = field[15:-1].split(",")
+            if len(keys) == 1 and keys[0].strip() == "user_id":
+                return example.get("user_id")  # Return user_id directly from merged example
             return {k.strip(): get_nested(example, k.strip()) for k in keys}
         elif "." in field:  # Try to resolve as dotted path
             return get_nested(example, field)

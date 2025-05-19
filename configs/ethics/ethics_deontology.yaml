@@ -1,6 +1,6 @@
-name: "ethics_justice"
+name: "ethics_deontology"
 source: "hendrycks/ethics"
-subset: "justice"
+subset: "deontology"
 keep_columns: ["scenario", "label"]
 
 mappings:

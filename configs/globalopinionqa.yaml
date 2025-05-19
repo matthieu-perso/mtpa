@@ -1,0 +1,36 @@
+name: "globalopinionqa"
+source: "Anthropic/llm_global_opinions"
+subset: "default"
+keep_columns: ["question", "selections", "options"]
+
+mappings:
+  task_type: "ranking"
+  prompt: "question"
+  split: "train"
+  target:
+    input: "selections"
+    value: "options"
+
+  # user_profile:
+  #   characteristics:
+  #     - "survey.employment_status"
+  #     - "survey.education"
+  #   stated_preferences:
+  #     pairwise: []
+  #     scored: []
+  #     categorical: []
+  #     ranked_lists: []
+  #     freeform_text:
+  #       - "survey.response"
+  #       - "utterances.user_prompt"
+  #   observed_preferences:
+  #     pairwise: []
+  #     scored: []
+  #     categorical: []
+  #     ranked_lists: []
+  #     freeform_text: []
+  #   behavior: []
+
+
+
+

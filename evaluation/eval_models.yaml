@@ -1,0 +1,14 @@
+models:
+  - name: llama
+    version: 3.2
+    parameters: {}
+  - name: phi
+    version: 4
+    parameters: {}
+  - name: qwen
+    version: latest
+    parameters: {}
+  - name: mistral
+    version: latest
+    parameters: {}
+

@@ -1,4 +1,4 @@
-name: "prism_merged"
+name: "opinionqa"
 type: "merge"
 merge_key: "user_id"
 merge_sources:
@@ -12,17 +12,17 @@ merge_sources:
     keep_columns: ["user_id", "model_response", "score", "user_prompt"]
 
 mappings:
-  user_id: "merge_metadata(user_id)"
   task_type: "ranking"
   prompt: "utterances.user_prompt"
+  output: "utterances.model_response"
   split: "train"
-  target:
-    input: "utterances.model_response"
+  annotation:
+    type: "ranking"
     value: "utterances.score"
   user_profile:
     characteristics:
-      employment_status: "survey.employment_status"
-      education: "survey.education"
+      - "survey.employment_status"
+      - "survey.education"
     stated_preferences:
       pairwise: []
       scored: []
@@ -32,12 +32,12 @@ mappings:
         - "survey.response"
         - "utterances.user_prompt"
     observed_preferences:
-      pairwise: []
-      scored: []
-      categorical: []
-      ranked_lists: []
-      freeform_text: []
-    behavior: []
+        pairwise: []
+        scored: []
+        categorical: []
+        ranked_lists: []
+        freeform_text: []
+    behavior: "merge_metadata(user_id)"
 
 
 
