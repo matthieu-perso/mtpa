@@ -1,4 +1,5 @@
-# Python
+# Ignore WVS files
+*wvs*.json
 __pycache__/
 *.py[cod]
 *$py.class
