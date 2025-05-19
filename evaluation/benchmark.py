@@ -1,4 +1,5 @@
 import json
+from tqdm import tqdm
 import random
 from pathlib import Path
 import numpy as np
@@ -69,7 +70,7 @@ class SurveyBenchmark:
         except ValueError:
             return 1.0 if pred == act else 0.0
 
-    def run_hf_benchmark_single_model(self, model_name: str, clean_function: Callable[[str], str], num_samples: int = 50) -> Dict[str, float]:
+    def run_hf_benchmark_single_model(self, model_name: str, clean_function: Callable[[str], str], num_samples: int = 300) -> Dict[str, float]:
         tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
         model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True).to(device)
 
@@ -77,7 +78,7 @@ class SurveyBenchmark:
         results = {'accuracy': 0.0, 'predictions': []}
         total_correct, total_questions = 0, 0
 
-        for i, respondent in enumerate(sampled_respondents):
+        for i, respondent in enumerate(tqdm(sampled_respondents, desc="Processing respondents", total=num_samples)):
             logging.info(f"Processing respondent {i+1}/{num_samples}")
             target_question = next((q for q in respondent['data'] if q['use_case'] == 'value' and q['answer_value'] is not None), None)
             if not target_question:
@@ -130,7 +131,9 @@ def main():
     input_questions = [
         'country', 'age', 'sex', 'education', 'marital_status',
         'employment_status', 'urban_rural', 'income', 'religion', 'ethnicity']
-    output_questions = ['importance_of_family']
+
+    for output_question in output_questions:
+        output_questions = [output_question]
 
     benchmark = SurveyBenchmark(
         data_path='evaluation/merged_wvs_gss.json',
