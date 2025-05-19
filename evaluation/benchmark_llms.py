@@ -8,9 +8,14 @@ from google import genai
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
-# Set API keys
-openai.api_key = "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"
-gemini_client = genai.Client(api_key="AIzaSyDYxk8byOOJp0-ipnpAy5WVJWyN6B92vUE")
+# Set API keys from environment variables
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Load environment variables from a .env file
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
+gemini_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 class SurveyBenchmark:
     def __init__(self, data_path: str, input_questions: List[str], target_questions: List[str]):
