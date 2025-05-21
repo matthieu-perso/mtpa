@@ -70,7 +70,7 @@ class SurveyBenchmark:
         except ValueError:
             return 1.0 if pred == act else 0.0
 
-    def run_hf_benchmark_single_model(self, model_name: str, clean_function: Callable[[str], str], num_samples: int = 300) -> Dict[str, float]:
+    def run_hf_benchmark_single_model(self, model_name: str, clean_function: Callable[[str], str], num_samples: int = 50) -> Dict[str, float]:
         tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
         model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True).to(device)
 
@@ -80,31 +80,66 @@ class SurveyBenchmark:
 
         for i, respondent in enumerate(tqdm(sampled_respondents, desc="Processing respondents", total=num_samples)):
             logging.info(f"Processing respondent {i+1}/{num_samples}")
-            target_question = next((q for q in respondent['data'] if q['use_case'] == 'value' and q['answer_value'] is not None), None)
-            if not target_question:
-                continue
-            prompt = self.create_prompt(respondent, [target_question['question_id']])
-            try:
-                inputs = tokenizer(prompt, return_tensors="pt").to(device)
-                outputs = model.generate(inputs["input_ids"], max_new_tokens=3)
-                text = tokenizer.batch_decode(outputs)[0]
-                print("TEXT: ", text)
-                pred = clean_function(text)
-                print("PRED: ", pred)
+            for target_question in respondent['data']:
+                if target_question['use_case'] != 'value' or target_question['answer_value'] is None:
+                    continue
+                prompt = self.create_prompt(respondent, [target_question['question_id']])
+                try:
+                    inputs = tokenizer(prompt, return_tensors="pt").to(device)
+                    outputs = model.generate(inputs["input_ids"], max_new_tokens=3)
+                    text = tokenizer.batch_decode(outputs)[0]
+                    pred = clean_function(text)
+                    print("PRED: ", pred)
 
-                acc = self.evaluate_prediction(pred, target_question)
-                total_correct += acc
-                total_questions += 1
-                results['predictions'].append({
-                    'prompt': prompt,
-                    'question_id': target_question['question_id'],
-                    'prediction': pred,
-                    'actual': target_question['answer_value'],
-                    'accuracy': acc
-                })
-                logging.info(results['predictions'][-1])
-            except Exception as e:
-                logging.error(f"Error processing respondent {i}: {str(e)}")
+                    acc = self.evaluate_prediction(pred, target_question)
+                    total_correct += acc
+                    total_questions += 1
+                    results['predictions'].append({
+                        'prompt': prompt,
+                        'question_id': target_question['question_id'],
+                        'category': target_question.get('category', 'Unknown'),
+                        'prediction': pred,
+                        'actual': target_question['answer_value'],
+                        'accuracy': acc
+                    })
+                    logging.info(results['predictions'][-1])
+                except Exception as e:
+                    logging.error(f"Error processing respondent {i}: {str(e)}")
+
+        results['accuracy'] = total_correct / total_questions if total_questions > 0 else 0.0
+        return results
+
+    def run_api_benchmark(self, model_name: str, api_client: Any, clean_function: Callable[[str], str], num_samples: int = 50) -> Dict[str, float]:
+        sampled_respondents = random.sample(self.data, num_samples)
+        results = {'accuracy': 0.0, 'predictions': []}
+        total_correct, total_questions = 0, 0
+
+        for i, respondent in enumerate(tqdm(sampled_respondents, desc=f"Processing respondents for {model_name}", total=num_samples)):
+            logging.info(f"Processing respondent {i+1}/{num_samples}")
+            for target_question in respondent['data']:
+                if target_question['use_case'] != 'value' or target_question['answer_value'] is None:
+                    continue
+                prompt = self.create_prompt(respondent, [target_question['question_id']])
+                try:
+                    response = api_client.generate(prompt=prompt, max_tokens=3)
+                    text = response['choices'][0]['text']
+                    pred = clean_function(text)
+                    print("PRED: ", pred)
+
+                    acc = self.evaluate_prediction(pred, target_question)
+                    total_correct += acc
+                    total_questions += 1
+                    results['predictions'].append({
+                        'prompt': prompt,
+                        'question_id': target_question['question_id'],
+                        'category': target_question.get('category', 'Unknown'),
+                        'prediction': pred,
+                        'actual': target_question['answer_value'],
+                        'accuracy': acc
+                    })
+                    logging.info(results['predictions'][-1])
+                except Exception as e:
+                    logging.error(f"Error processing respondent {i}: {str(e)}")
 
         results['accuracy'] = total_correct / total_questions if total_questions > 0 else 0.0
         return results
@@ -127,41 +162,128 @@ def clean_output(text: str) -> str:
 def clean_output_meta_llama(text: str) -> str:
     return text.split('<|start_header_id|>assistant|<end_header_id|>')[-1].split('<eot_id>')[0].strip()
 
+# Add API clients for new models
+class GPT4oClient:
+    def __init__(self, api_key: str):
+        self.client = OpenAI(api_key=api_key)
+
+    def generate(self, prompt: str, max_tokens: int):
+        response = self.client.responses.create(
+            model="gpt-4o",
+            instructions="You are a coding assistant that talks like a pirate.",
+            input=prompt,
+        )
+        return {'choices': [{'text': response.output_text}]}
+
+class GPT4oMiniClient:
+    def __init__(self, api_key: str):
+        self.client = OpenAI(api_key=api_key)
+
+    def generate(self, prompt: str, max_tokens: int):
+        response = self.client.responses.create(
+            model="gpt-4o-mini",
+            instructions="You are a coding assistant that talks like a pirate.",
+            input=prompt,
+        )
+        return {'choices': [{'text': response.output_text}]}
+
+class GeminiFlash2Client:
+    def __init__(self, api_key: str):
+        self.client = genai.Client(api_key=api_key)
+
+    def generate(self, prompt: str, max_tokens: int):
+        # Implement the API call for Gemini Flash 2
+        response = self.client.models.generate_content(
+            model='gemini-2.0-flash-001',
+            contents=prompt
+        )
+        return {'choices': [{'text': response.text}]}
+
+class AnthropicClient:
+    def __init__(self, api_key: str):
+        self.client = anthropic.Anthropic(api_key=api_key)
+
+    def generate(self, prompt: str, max_tokens: int):
+        message = self.client.messages.create(
+            max_tokens=max_tokens,
+            messages=[
+                {
+                    "role": "user",
+                    "content": str(prompt),
+                }
+            ],
+            model="claude-3-5-sonnet-latest",
+        )
+        print("MESSAGE: ", message.content[0].text)
+        return {'choices': [{'text': message.content[0].text}]}
+
 def main():
     input_questions = [
         'country', 'age', 'sex', 'education', 'marital_status',
         'employment_status', 'urban_rural', 'income', 'religion', 'ethnicity']
 
-    for output_question in output_questions:
-        output_questions = [output_question]
+    # Load data once to get all possible target questions
+    data_path = 'evaluation/merged_wvs_gss.json'
+    with open(data_path, 'r') as f:
+        data = json.load(f)
 
-    benchmark = SurveyBenchmark(
-        data_path='evaluation/merged_wvs_gss.json',
-        input_questions=input_questions,
-        target_questions=output_questions
-    )
+    # Extract all unique target questions
+    all_target_questions = set(q['question_id'] for respondent in data for q in respondent['data'] if q['use_case'] == 'value')
 
     results = {}
 
-    print("\nBenchmarking google/gemma-3-4b-it...")
-    results['gemma-3-4b-it'] = benchmark.run_hf_benchmark_single_model("google/gemma-3-4b-it", clean_output)
-    print(f"Accuracy: {results['gemma-3-4b-it']['accuracy']:.2f}")
+    # Initialize API clients
+    gpt4o_client = GPT4oClient(api_key=openai.api_key)
+    gpt4o_mini_client = GPT4oMiniClient(api_key=openai.api_key)
+    gemini_flash2_client = GeminiFlash2Client(api_key=os.getenv('GEMINI_API_KEY'))
+    anthropic_client = AnthropicClient(api_key=anthropic_api_key)
 
+    # Run benchmarks for each target question
+    for target_question in all_target_questions:
+        print(f"\nRunning benchmarks for target question: {target_question}")
+        benchmark_instance = SurveyBenchmark(
+            data_path=data_path,
+            input_questions=input_questions,
+            target_questions=[target_question]
+        )
 
+        # Run benchmarks for API-based models
 
-    print("\nBenchmarking Meta-Llama-3.1-8B-Instruct...")
-    results['meta_llama'] = benchmark.run_hf_benchmark_single_model("meta-llama/Llama-3.1-8B-Instruct", clean_output)
-    print(f"Accuracy: {results['meta_llama']['accuracy']:.2f}")
+        print("\nBenchmarking Gemini Flash 2...")
+        results[f'gemini-flash-2_{target_question}'] = benchmark_instance.run_api_benchmark("Gemini Flash 2", gemini_flash2_client, clean_output)
+        print(f"Accuracy: {results[f'gemini-flash-2_{target_question}']['accuracy']:.2f}")
 
+        print("\nBenchmarking Anthropic...")
+        results[f'anthropic_{target_question}'] = benchmark_instance.run_api_benchmark("Anthropic", anthropic_client, clean_output)
+        print(f"Accuracy: {results[f'anthropic_{target_question}']['accuracy']:.2f}")
 
-    print("\nBenchmarking mistralai/Mistral-7B-Instruct-v0.2...")
-    results['mistral'] = benchmark.run_hf_benchmark_single_model("mistralai/Mistral-7B-Instruct-v0.2", clean_output)
-    print(f"Accuracy: {results['mistral']['accuracy']:.2f}")
+        print("\nBenchmarking GPT-4o...")
+        results[f'gpt-4o_{target_question}'] = benchmark_instance.run_api_benchmark("GPT-4o", gpt4o_client, clean_output)
+        print(f"Accuracy: {results[f'gpt-4o_{target_question}']['accuracy']:.2f}")
 
-    output_path = Path('benchmark_results.json')
-    with open(output_path, 'w') as f:
-        json.dump(results, f, indent=2)
-    print(f"\nResults saved to {output_path}")
+        print("\nBenchmarking GPT-4o Mini...")
+        results[f'gpt-4o-mini_{target_question}'] = benchmark_instance.run_api_benchmark("GPT-4o Mini", gpt4o_mini_client, clean_output)
+        print(f"Accuracy: {results[f'gpt-4o-mini_{target_question}']['accuracy']:.2f}")
+
+        # Run benchmarks for open-source models
+        print("\nBenchmarking google/gemma-3-4b-it...")
+        results[f'gemma-3-4b-it_{target_question}'] = benchmark_instance.run_hf_benchmark_single_model("google/gemma-3-4b-it", clean_output)
+        print(f"Accuracy: {results[f'gemma-3-4b-it_{target_question}']['accuracy']:.2f}")
+
+        print("\nBenchmarking Meta-Llama-3.1-8B-Instruct...")
+        results[f'meta_llama_{target_question}'] = benchmark_instance.run_hf_benchmark_single_model("meta-llama/Llama-3.1-8B-Instruct", clean_output)
+        print(f"Accuracy: {results[f'meta_llama_{target_question}']['accuracy']:.2f}")
+
+        print("\nBenchmarking mistralai/Mistral-7B-Instruct-v0.2...")
+        results[f'mistral_{target_question}'] = benchmark_instance.run_hf_benchmark_single_model("mistralai/Mistral-7B-Instruct-v0.2", clean_output)
+        print(f"Accuracy: {results[f'mistral_{target_question}']['accuracy']:.2f}")
+
+        # Save results for the current target question
+        output_path = Path(f'benchmark_results_{target_question}.json')
+        with open(output_path, 'w') as f:
+            json.dump({k: v for k, v in results.items() if target_question in k}, f, indent=2)
+        print(f"\nResults for {target_question} saved to {output_path}")
+
 
 if __name__ == "__main__":
     main()
