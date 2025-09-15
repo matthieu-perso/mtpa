@@ -5,6 +5,11 @@ from typing import Dict, List, Tuple
 
 from .datasets import load_all_datasets
 from .models import ModelRegistry
+from .personas import load_data, create_prompt
+
+
+def create_persona_prompt(persona_type: str, respondent: Dict, target_questions: list) -> str:
+    return create_prompt(persona_type, respondent, target_questions)
 
 
 def evaluate_truthfulqa_with_runner(runner, limit: int = None) -> Dict:
