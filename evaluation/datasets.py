@@ -9,10 +9,14 @@ Pipeline:
 5.  Feed z_hat + PRISM prompt to an LLM to generate personalised text.
 6.  Evaluate generation against gold PRISM output.
 """
+from __future__ import annotations
 import argparse, json, random, pathlib, os, time
 from dataclasses import dataclass, field
 from typing import List, Dict, Any
+from typing import Dict, Any, Optional
+import logging
 
+from datasets import load_dataset, get_dataset_config_names, DatasetDict, Dataset
 # --- external libs -----------------------------------------------------------
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
@@ -62,6 +66,36 @@ def load_prism(path: str) -> List[PrismSample]:
             )
         )
     return samples
+
+
+# datasets.py
+from typing import Dict, Any, Optional
+from datasets import load_dataset
+
+def load_all_datasets() -> Dict[str, Dict[str, Any]]:
+    """
+    Returns:
+      {
+        "truthful_qa": {"name": "...", "data": DatasetDict({...})},
+        "bbq":         {"name": "...", "data": dict(subset -> Dataset)},
+        "normad":      {"name": "...", "data": DatasetDict({...})},
+      }
+    """
+    out: Dict[str, Dict[str, Any]] = {}
+
+    tqa = load_dataset("domenicrosati/TruthfulQA", "default")
+    out["truthful_qa"] = {"name": "domenicrosati/TruthfulQA", "data": tqa}
+
+    bbq = load_dataset("walledai/BBQ", "default")
+
+    out["bbq"] = {"name": "walledai/BBQ", "data": dict(bbq)}
+
+    normad = load_dataset("akhilayerukola/NormAd", "default")
+    out["normad"] = {"name": "akhilayerukola/NormAd", "data": normad}
+
+    return out
+
+
 
 # ============== LLM wrappers =================================================
 class LLM:
@@ -198,5 +232,6 @@ if __name__ == "__main__":
     ap.add_argument("--prism", required=True, help="PRISM jsonl file")
     ap.add_argument("--out",   required=True, help="output directory")
     ap.add_argument("--model", default="meta-llama/Meta-Llama-3-8B-Instruct")
+    "mpte/mpta"
     args = ap.parse_args()
     main(args)

@@ -22,6 +22,14 @@ class HFConfig:
     device_map: str = "auto"
     load_in_8bit: bool = False
 
+def _prepend_preface(preface: str, text: str) -> str:
+    if not preface:
+        return text
+    p = str(preface).strip()
+    if not p.endswith("\n"):
+        p += "\n"
+    return p + text
+
 
 class HFRunner:
     def __init__(self, cfg: HFConfig):
@@ -93,10 +101,12 @@ class HFRunner:
             return token_logprobs.mean().item()
 
     def score_mc(self, question: str, options: List[str], preface: str = "") -> Tuple[int, List[float]]:
-        prompt = f"{preface}{question}\nAnswer: "
+        user = f"{question}\nAnswer: "
+        prompt = _prepend_preface(preface, user)     # <-- changed (was f"{preface}{question}\nAnswer: ")
         scores = [self._option_logprob(prompt, o) for o in options]
         best_idx = int(torch.tensor(scores).argmax().item())
         return best_idx, scores
+
 
 
 @dataclass
@@ -126,10 +136,11 @@ class OpenAIRunner:
     def score_mc(self, question: str, options: List[str], preface: str = "") -> Tuple[int, List[float]]:
         letters = [chr(ord('A') + i) for i in range(len(options))]
         forced_choice = "\n".join([f"{letters[i]}. {opt}" for i, opt in enumerate(options)])
-        prompt = (
-            f"{preface}{question}\n{forced_choice}\n"
+        core = (
+            f"{question}\n{forced_choice}\n"
             "Respond with a single letter (A, B, C, ...) only."
         )
+        prompt = _prepend_preface(preface, core)     # <-- changed (no other behavior change)
         txt = self.generate(prompt, max_new_tokens=2, temperature=0.0)
         choice = txt.strip().upper()[:1]
         try:
@@ -138,6 +149,7 @@ class OpenAIRunner:
             idx = 0
         scores = [1.0 if i == idx else 0.0 for i in range(len(options))]
         return idx, scores
+
 
 
 @dataclass
@@ -163,10 +175,11 @@ class GeminiRunner:
     def score_mc(self, question: str, options: List[str], preface: str = "") -> Tuple[int, List[float]]:
         letters = [chr(ord('A') + i) for i in range(len(options))]
         forced_choice = "\n".join([f"{letters[i]}. {opt}" for i, opt in enumerate(options)])
-        prompt = (
-            f"{preface}{question}\n{forced_choice}\n"
+        core = (
+            f"{question}\n{forced_choice}\n"
             "Respond with a single letter (A, B, C, ...) only."
         )
+        prompt = _prepend_preface(preface, core)     # <-- changed
         txt = self.generate(prompt, max_new_tokens=2, temperature=0.0)
         choice = txt.strip().upper()[:1]
         try:
@@ -175,6 +188,7 @@ class GeminiRunner:
             idx = 0
         scores = [1.0 if i == idx else 0.0 for i in range(len(options))]
         return idx, scores
+
 
 
 class ModelRegistry:
