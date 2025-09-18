@@ -169,7 +169,6 @@ def evaluate_truthfulqa_with_runner(runner, limit: int = None, personas: Optiona
         q, options, gold = _tqa_mc_from_row(row)
         if not options:
             continue
-        breakpoint()
 
         pid, preface, traits = personas.next() if personas else ("", "", {})
         pred_idx, scores = runner.score_mc(q, options, preface=preface)
@@ -219,6 +218,7 @@ def evaluate_bbq_with_runner(runner, limit: int = None, personas: Optional[Perso
             continue
 
         pid, preface, traits = personas.next() if personas else ("", "", {})
+
         pred_idx, scores = runner.score_mc(q, options, preface=preface)
         is_correct = int(pred_idx == int(gold))
 
@@ -267,6 +267,7 @@ def evaluate_normad_with_runner(runner, limit: int = None, personas: Optional[Pe
             continue
 
         pid, preface, traits = personas.next() if personas else ("", "", {})
+
         pred_idx, scores = runner.score_mc(q, options, preface=preface)
         is_correct = int(pred_idx == int(gold))
 
@@ -305,7 +306,7 @@ def main():
     parser.add_argument("--seed", type=int, default=0, help="Random seed for persona assignment (random mode)")
 
     args = parser.parse_args()
-    breakpoint()
+
     registry = ModelRegistry()
     registry.register_gemini("gemini-2.0-flash", "gemini-2.0-flash")
 

@@ -27,8 +27,8 @@ def _prepend_preface(preface: str, text: str) -> str:
         return text
     p = str(preface).strip()
     if not p.endswith("\n"):
-        p += "\n"
-    return p + text
+        p += "\n\n"
+    return p +  "[PROMPT]" +text
 
 
 class HFRunner:
@@ -102,7 +102,7 @@ class HFRunner:
 
     def score_mc(self, question: str, options: List[str], preface: str = "") -> Tuple[int, List[float]]:
         user = f"{question}\nAnswer: "
-        prompt = _prepend_preface(preface, user)     # <-- changed (was f"{preface}{question}\nAnswer: ")
+        prompt = _prepend_preface(preface, user)    
         scores = [self._option_logprob(prompt, o) for o in options]
         best_idx = int(torch.tensor(scores).argmax().item())
         return best_idx, scores
@@ -140,7 +140,7 @@ class OpenAIRunner:
             f"{question}\n{forced_choice}\n"
             "Respond with a single letter (A, B, C, ...) only."
         )
-        prompt = _prepend_preface(preface, core)     # <-- changed (no other behavior change)
+        prompt = _prepend_preface(preface, core)    
         txt = self.generate(prompt, max_new_tokens=2, temperature=0.0)
         choice = txt.strip().upper()[:1]
         try:
@@ -179,7 +179,7 @@ class GeminiRunner:
             f"{question}\n{forced_choice}\n"
             "Respond with a single letter (A, B, C, ...) only."
         )
-        prompt = _prepend_preface(preface, core)     # <-- changed
+        prompt = _prepend_preface(preface, core)   
         txt = self.generate(prompt, max_new_tokens=2, temperature=0.0)
         choice = txt.strip().upper()[:1]
         try:
