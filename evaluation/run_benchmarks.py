@@ -127,6 +127,133 @@ def _resolve_mtpa_path(mtpa_arg: Optional[str]) -> str:
     return cands[0]
 
 
+def _age_bin_from_traits(traits: Dict[str, str]) -> str:
+    a = traits.get("age")
+    try:
+        ai = int(float(a)) if a is not None and str(a).strip() != "" else 0
+    except Exception:
+        ai = 0
+    return f"{(ai//10)*10:02d}s" if ai > 0 else "UNK"
+
+
+def _norm(s: Optional[str]) -> str:
+    return (s or "").strip().lower()
+
+
+def _choose_stratified_personas(
+    people: List[Dict[str, Dict[str, str]]],
+    countries: List[str],
+    total_n: int,
+    seed: int,
+) -> List[Dict[str, Dict[str, str]]]:
+    """Select personas equally across given countries, 50/50 gender, spread across age bins.
+    Reproducible via seed. Falls back within country if some strata lack members.
+    """
+    if total_n <= 0 or not countries:
+        return []
+    rng = random.Random(seed)
+    # Normalize country targets
+    target_countries_norm = [_norm(c) for c in countries]
+    # Build index: by country -> gender -> bin -> list of indices
+    by_country: Dict[str, Dict[str, Dict[str, List[int]]]] = {}
+    for idx, p in enumerate(people):
+        t = p.get("traits", {}) or {}
+        c = _norm(t.get("country"))
+        if not c:
+            continue
+        # Only consider if country is in target list (lenient: exact or substring match either way)
+        if c not in target_countries_norm and not any(c in tc or tc in c for tc in target_countries_norm):
+            continue
+        g_raw = _norm(t.get("gender"))
+        gender = "female" if g_raw == "female" else ("male" if g_raw == "male" else "other")
+        if gender not in ("female", "male"):
+            continue
+        bin_label = _age_bin_from_traits(t)
+        by_country.setdefault(c, {}).setdefault(gender, {}).setdefault(bin_label, []).append(idx)
+    # Prepare quotas per country
+    K = len(target_countries_norm)
+    base = total_n // K
+    rem = total_n - base * K
+    selected: List[int] = []
+    # Fixed bin order for spread
+    bin_order = [f"{k:02d}s" for k in range(10, 90, 10)]
+    # Iterate countries in given order
+    for i, c_in in enumerate(target_countries_norm):
+        # Find best matching key present
+        candidates_keys = [ck for ck in by_country.keys() if ck == c_in or c_in in ck or ck in c_in]
+        if not candidates_keys:
+            continue
+        ckey = sorted(candidates_keys, key=len)[0]
+        quota_country = base + (1 if i < rem else 0)
+        # 50/50 gender split
+        gq_f = quota_country // 2
+        gq_m = quota_country - gq_f
+        for gender, gq in (("female", gq_f), ("male", gq_m)):
+            taken = 0
+            # Shuffle lists per bin for randomness
+            bins_map = by_country.get(ckey, {}).get(gender, {})
+            # Round-robin over bins
+            while taken < gq and bins_map:
+                progressed = False
+                for b in bin_order:
+                    lst = bins_map.get(b, [])
+                    if not lst:
+                        continue
+                    rng.shuffle(lst)
+                    idx = lst.pop()  # take one
+                    if idx not in selected:
+                        selected.append(idx)
+                        taken += 1
+                        progressed = True
+                        if taken >= gq:
+                            break
+                if not progressed:
+                    break
+            # Backfill within gender in this country regardless of bin
+            if taken < gq:
+                pool = []
+                for arr in bins_map.values():
+                    pool.extend(arr)
+                rng.shuffle(pool)
+                for idx in pool:
+                    if taken >= gq:
+                        break
+                    if idx not in selected:
+                        selected.append(idx)
+                        taken += 1
+        # If still short for this country, try other gender pools in the same country
+        current_country_count = sum(1 for idx in selected if _norm(people[idx]["traits"].get("country")) in (ckey,))
+        if current_country_count < quota_country:
+            need = quota_country - current_country_count
+            pool = []
+            for g in ("female", "male"):
+                for arr in by_country.get(ckey, {}).get(g, {}).values():
+                    pool.extend(arr)
+            rng.shuffle(pool)
+            for idx in pool:
+                if need <= 0:
+                    break
+                if idx not in selected:
+                    selected.append(idx)
+                    need -= 1
+    # If overall shortfall, backfill from any remaining candidates among targets
+    if len(selected) < total_n:
+        all_pool = []
+        for ckey in list(by_country.keys()):
+            if not any(ckey == tc or tc in ckey or ckey in tc for tc in target_countries_norm):
+                continue
+            for g in ("female", "male"):
+                for arr in by_country.get(ckey, {}).get(g, {}).values():
+                    all_pool.extend(arr)
+        rng.shuffle(all_pool)
+        for idx in all_pool:
+            if len(selected) >= total_n:
+                break
+            if idx not in selected:
+                selected.append(idx)
+    # Return selected personas maintaining deterministic order by (country order, then selection order)
+    return [people[i] for i in selected[:total_n]]
+
 
 def _tqa_mc_from_row(row) -> tuple[str, list[str], int]:
     """
@@ -179,6 +306,32 @@ def _tqa_mc_from_row(row) -> tuple[str, list[str], int]:
 
     gold_idx = 0
     return q, options, gold_idx
+
+
+def _tqa_mc2_from_row(row) -> tuple[str, list[str], int]:
+    """Prefer official TruthfulQA MC2 targets; fall back to MC1 or CSV-style if needed."""
+    # Official fields
+    if isinstance(row.get("mc2_targets"), dict):
+        q = (row.get("question") or "").strip()
+        choices = row["mc2_targets"].get("choices", []) or []
+        gold = row["mc2_targets"].get("labels")
+        if choices and gold is not None:
+            try:
+                return q, list(choices), int(gold)
+            except Exception:
+                pass
+    # Fallback to MC1 if MC2 missing
+    if isinstance(row.get("mc1_targets"), dict):
+        q = (row.get("question") or "").strip()
+        choices = row["mc1_targets"].get("choices", []) or []
+        gold = row["mc1_targets"].get("labels")
+        if choices and gold is not None:
+            try:
+                return q, list(choices), int(gold)
+            except Exception:
+                pass
+    # Last resort: build from CSV-style
+    return _tqa_mc_from_row(row)
 
 
 def _bbq_mc_from_row(row) -> tuple[str, list[str], int]:
@@ -239,7 +392,14 @@ def evaluate_truthfulqa_with_runner(runner, limit: int = None, personas: Optiona
     ds = load_all_datasets().get("truthful_qa")
     if ds is None:
         return {"dataset": "truthful_qa", "error": "load_failed"}
-    dataset = list(ds["data"]["train"])  # deterministic single source
+    # Prefer validation/test from official multiple_choice split
+    data = ds["data"]
+    if "validation" in data:
+        dataset = list(data["validation"])  # type: ignore
+    elif "test" in data:
+        dataset = list(data["test"])  # type: ignore
+    else:
+        dataset = list(data.get("train", []))  # type: ignore
 
     # Deterministic sampling of questions
     idxs = _sample_indices(len(dataset), limit, seed=seed + 11)
@@ -250,7 +410,7 @@ def evaluate_truthfulqa_with_runner(runner, limit: int = None, personas: Optiona
 
     for j, i in enumerate(tqdm(idxs, total=len(idxs), desc=f"TruthfulQA [{runner.name}]") ):
         ex = dataset[i]
-        q, options, gold = _tqa_mc_from_row(ex)
+        q, options, gold = _tqa_mc2_from_row(ex)
         if not options:
             continue
         example_id = i
@@ -445,6 +605,10 @@ def main():
     # API registration convenience
     parser.add_argument("--openai-models", nargs="*", default=[], help="OpenAI model ids to register (e.g., gpt-4o)")
     parser.add_argument("--gemini-models", nargs="*", default=[], help="Gemini model ids to register (e.g., gemini-2.0-flash)")
+    # Stratified persona sampling
+    parser.add_argument("--persona-stratified", action="store_true", help="Select personas stratified by countries, gender 50/50, and age bins")
+    parser.add_argument("--persona-n", type=int, default=None, help="Total personas to select when using --persona-stratified")
+    parser.add_argument("--persona-countries", type=str, default="", help="Comma-separated list of countries for stratified sampling")
 
     args = parser.parse_args()
 
@@ -458,7 +622,17 @@ def main():
     personas_provider = None
     if args.with_persona:
         mtpa_path = _resolve_mtpa_path(args.mtpa)
-        people = load_data(mtpa_path, max_n=args.persona_limit)
+        people_all = load_data(mtpa_path, max_n=None)
+        # Optional filtering/stratification
+        if args.persona_stratified:
+            countries = [c.strip() for c in (args.persona_countries or "").split(",") if c.strip()]
+            total_n = args.persona_n or args.persona_limit or 100
+            selected_people = _choose_stratified_personas(people_all, countries, total_n, seed=args.seed)
+            people = selected_people
+        else:
+            # Fall back to simple head limit
+            limit = args.persona_limit
+            people = people_all[:limit] if limit else people_all
         personas_provider = PersonaProvider(
             people=people,
             mode=args.persona_mode,
