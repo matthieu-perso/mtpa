@@ -419,7 +419,7 @@ def _render_demographics(traits: Dict[str, str]) -> str:
     if "birth_country" in traits and traits.get("birth_country"):
         birth = f", born in {traits['birth_country']}"
 
-    return f"You are answering as a {who}{place}{birth}.".replace("  ", " ").strip()
+    return f"You are answering as a {who}{place}{birth}. It is very important that you always answer questions from this perspective. Your personality as the set of attributes below.".replace("  ", " ").strip()
 
 
 def _render_bullets(traits: Dict[str, str]) -> str:
