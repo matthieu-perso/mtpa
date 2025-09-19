@@ -32,7 +32,7 @@ pip install -r requirements.txt
 export HF_HOME="/rds-d6/user/mm2833/hpc-work/.cache/huggingface"
 export TRANSFORMERS_CACHE="/rds-d6/user/mm2833/hpc-work/.cache/huggingface/transformers"
 export HF_DATASETS_CACHE="/rds-d6/user/mm2833/hpc-work/.cache/huggingface/datasets"
-export HF_TOKEN="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"
+ 
 
 mkdir -p "$HF_HOME"
 mkdir -p "$TRANSFORMERS_CACHE"
