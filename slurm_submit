@@ -1,0 +1,59 @@
+#!/bin/bash
+#SBATCH -A BURDEN-MECHINT-SL2-GPU
+
+#SBATCH --job-name=mtp_activations
+#SBATCH --output=logs/llama_%j.out
+#SBATCH --error=logs/llama_%j.err
+#SBATCH --time=05:00:00
+#SBATCH --partition=ampere
+#SBATCH --gres=gpu:1
+#SBATCH --mem=80G
+#SBATCH --cpus-per-task=16
+#SBATCH --nodes=1
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=mm2833@cam.ac.uk
+
+# Create logs directory if it doesn't exist
+mkdir -p logs
+
+# Load required modules (following John Burden project pattern)
+. /etc/profile.d/modules.sh
+module purge
+module load rhel8/default-amp
+
+###########
+module load python/3.8 cuda/11.8 cudnn/8.9_cuda-11.8 
+source /rds/user/mm2833/hpc-work/venv_py38/bin/activate
+pip install -r requirements.txt
+
+
+###########
+
+export HF_HOME="/rds-d6/user/mm2833/hpc-work/.cache/huggingface"
+export TRANSFORMERS_CACHE="/rds-d6/user/mm2833/hpc-work/.cache/huggingface/transformers"
+export HF_DATASETS_CACHE="/rds-d6/user/mm2833/hpc-work/.cache/huggingface/datasets"
+export HF_TOKEN="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"
+
+mkdir -p "$HF_HOME"
+mkdir -p "$TRANSFORMERS_CACHE"
+mkdir -p "$HF_DATASETS_CACHE"
+export HF_TOKEN="$HF_TOKEN"
+
+# Print environment info
+echo "🐍 Python version: $(python --version)"
+echo "🔧 CUDA version: $(nvcc --version | grep release)"
+echo "💾 HF cache location: $HF_HOME"
+echo "🎯 Model: $MODEL"
+echo "📁 Directory: $DIRECTORY"
+echo "📄 Batch file: $REQUESTS"
+echo "📤 Output file: $OUTPUT"
+
+
+python -m evaluation.run_benchmarks \
+  --models meta-llama/Meta-Llama-3-8B-Instruct mistralai/Mistral-7B-Instruct-v0.2 \
+  --datasets truthful_qa bbq normad \
+  --with-persona --mtpa hf:matthieunlp/MTPA \
+  --persona-type bullets --persona-limit 100 \
+  --persona-sweep --persona-sweep-k 100 --persona-sweep-mode random \
+  --limit 10 --seed 123 \
+  --output results/local_100p_10q.json

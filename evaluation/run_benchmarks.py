@@ -10,6 +10,12 @@ from .personas import load_data, create_prompt
 from typing import Optional  
 import random
 from tqdm import tqdm
+import os
+import glob
+try:
+    from huggingface_hub import snapshot_download
+except Exception:
+    snapshot_download = None
 
 
 class PersonaProvider:
@@ -81,6 +87,44 @@ class PersonaProvider:
             result.append((pid, preface, traits))
         return result
 
+
+def _resolve_mtpa_path(mtpa_arg: Optional[str]) -> str:
+    """Return a local path to the MTPA JSON file.
+    If mtpa_arg is an HF repo id or missing file, download and locate mpta.json (or base_mpta.json).
+    Accepted forms:
+      - path/to/mpta.json (existing file)
+      - directory containing mpta.json (or base_mpta.json)
+      - 'hf:matthieunlp/MTPA' or 'matthieunlp/MTPA' (dataset repo id with mpta.json)
+      - None → defaults to 'matthieunlp/MTPA'
+    """
+    # If a concrete file exists, use it
+    if mtpa_arg:
+        p = Path(mtpa_arg)
+        if p.exists() and p.is_file():
+            return str(p)
+        if p.exists() and p.is_dir():
+            # search inside
+            cands = []
+            cands += glob.glob(os.path.join(str(p), "**", "mpta.json"), recursive=True)
+            cands += glob.glob(os.path.join(str(p), "**", "base_mpta.json"), recursive=True)
+            if cands:
+                return cands[0]
+    # Otherwise treat as HF repo id
+    repo_id = (mtpa_arg or "matthieunlp/MTPA").replace("hf:", "")
+    if snapshot_download is None:
+        raise RuntimeError("huggingface_hub is required to download MTPA; please install it.")
+    local_dir = snapshot_download(repo_id=repo_id, repo_type="dataset")
+    # Prefer mpta.json at root; else any mpta.json; else base_mpta.json variants
+    cands = glob.glob(os.path.join(local_dir, "mpta.json"))
+    if not cands:
+        cands = glob.glob(os.path.join(local_dir, "**", "mpta.json"), recursive=True)
+    if not cands:
+        cands = glob.glob(os.path.join(local_dir, "**", "full", "base_mpta.json"), recursive=True)
+    if not cands:
+        cands = glob.glob(os.path.join(local_dir, "**", "base_mpta.json"), recursive=True)
+    if not cands:
+        raise FileNotFoundError(f"MTPA json not found under downloaded dataset {local_dir}")
+    return cands[0]
 
 
 
@@ -389,7 +433,7 @@ def main():
     parser.add_argument("--limit", type=int, default=None, help="Limit examples per dataset (sampled deterministically)")
     parser.add_argument("--output", type=str, default="benchmark_results.json", help="Output JSON path")
     parser.add_argument("--with-persona", action="store_true", help="Enable persona-prefaced prompts")
-    parser.add_argument("--mtpa", type=str, default=None, help="Path to MTPA json/jsonl")
+    parser.add_argument("--mtpa", type=str, default=None, help="Path to MTPA json/jsonl, dir, or HF repo id (e.g., hf:matthieunlp/MTPA)")
     parser.add_argument("--persona-type", type=str, default="bullets", choices=["bullets", "json", "oneliner"], help="Persona rendering style")
     parser.add_argument("--persona-mode", type=str, default="cycle", choices=["first", "cycle", "random"], help="How to assign personas across examples (non-sweep mode)")
     parser.add_argument("--persona-limit", type=int, default=None, help="Use only first N personas (after load)")
@@ -412,8 +456,9 @@ def main():
         registry.register_gemini(mid, mid)
 
     personas_provider = None
-    if args.with_persona and args.mtpa:
-        people = load_data(args.mtpa, max_n=args.persona_limit)
+    if args.with_persona:
+        mtpa_path = _resolve_mtpa_path(args.mtpa)
+        people = load_data(mtpa_path, max_n=args.persona_limit)
         personas_provider = PersonaProvider(
             people=people,
             mode=args.persona_mode,
