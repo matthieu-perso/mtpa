@@ -23,6 +23,7 @@ wheels/
 
 dataset/raw
 results/
+mtpa.json
 
 
 # Jupyter Notebook
@@ -58,3 +59,4 @@ logs/
 # Local configuration
 .env
 .env.local 
+mpta.json

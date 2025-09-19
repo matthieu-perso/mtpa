@@ -9,6 +9,7 @@ from .models import ModelRegistry
 from .personas import load_data, create_prompt
 from typing import Optional  
 import random
+from tqdm import tqdm
 
 
 class PersonaProvider:
@@ -49,6 +50,36 @@ class PersonaProvider:
         preface = create_prompt(self.persona_type, person, target_questions=None) + "\n\n"
         traits = person.get("traits", {}) or {}
         return pid, preface, traits
+
+    def pick_k(self, k: int, mode: str, seed: int, start_index: int = 0) -> List[Tuple[str, str, Dict[str, str]]]:
+        """Pick K personas deterministically.
+        - first: take first K
+        - cycle: rotate by start_index, then take K
+        - random: shuffle with given seed, take K
+        Returns list of (pid, preface, traits).
+        """
+        if not self.enabled or not self.people or k <= 0:
+            return []
+        total = len(self.people)
+        k = min(k, total)
+        selection: List[Dict] = []
+        if mode == "first":
+            selection = self.people[:k]
+        elif mode == "cycle":
+            offset = start_index % total
+            selection = [self.people[(offset + i) % total] for i in range(k)]
+        else:  # random
+            rng = random.Random(seed)
+            idxs = list(range(total))
+            rng.shuffle(idxs)
+            selection = [self.people[idxs[i]] for i in range(k)]
+        result: List[Tuple[str, str, Dict[str, str]]] = []
+        for person in selection:
+            pid = str(person.get("pid", ""))
+            preface = create_prompt(self.persona_type, person, target_questions=None) + "\n\n"
+            traits = person.get("traits", {}) or {}
+            result.append((pid, preface, traits))
+        return result
 
 
 
@@ -151,98 +182,144 @@ def _normad_mc_from_row(row, label_vocab: list[str]) -> tuple[str, list[str], in
     return q, label_vocab, gold_idx
 
 
-def evaluate_truthfulqa_with_runner(runner, limit: int = None, personas: Optional[PersonaProvider] = None) -> Dict:
+def _sample_indices(n_total: int, limit: Optional[int], seed: int) -> List[int]:
+    """Return a deterministic sample of indices of size limit (or all) using seed."""
+    if limit is None or limit >= n_total:
+        return list(range(n_total))
+    rng = random.Random(seed)
+    return sorted(rng.sample(range(n_total), k=limit))
+
+
+def evaluate_truthfulqa_with_runner(runner, limit: int = None, personas: Optional[PersonaProvider] = None,
+                                    sweep: bool = False, sweep_k: int = 0, sweep_mode: str = "random", seed: int = 0) -> Dict:
     ds = load_all_datasets().get("truthful_qa")
     if ds is None:
         return {"dataset": "truthful_qa", "error": "load_failed"}
-    dataset = list(ds["data"]["train"])
+    dataset = list(ds["data"]["train"])  # deterministic single source
+
+    # Deterministic sampling of questions
+    idxs = _sample_indices(len(dataset), limit, seed=seed + 11)
 
     results = []
     correct = 0
     total = 0
 
-    for i, ex in enumerate(dataset):
-        if limit is not None and i >= limit:
-            break
-
-        row = ex
-        q, options, gold = _tqa_mc_from_row(row)
+    for j, i in enumerate(tqdm(idxs, total=len(idxs), desc=f"TruthfulQA [{runner.name}]") ):
+        ex = dataset[i]
+        q, options, gold = _tqa_mc_from_row(ex)
         if not options:
             continue
+        example_id = i
 
-        pid, preface, traits = personas.next() if personas else ("", "", {})
-        pred_idx, scores = runner.score_mc(q, options, preface=preface)
-        is_correct = int(pred_idx == int(gold))
-        correct += is_correct
-        total += 1
-        results.append({
-            "question": q,
-            "choices": options,
-            "pred_idx": pred_idx,
-            "gold_idx": int(gold),
-            "correct": is_correct,
-            "scores": scores,
-            **({"pid": pid, "persona_traits": traits} if personas and personas.enabled else {}),
-        })
+        persona_entries: List[Tuple[str, str, Dict[str, str]]] = [("", "", {})]
+        if personas and personas.enabled:
+            if sweep and sweep_k > 0:
+                persona_entries = personas.pick_k(sweep_k, sweep_mode, seed=seed + 1000 + i, start_index=j)
+            else:
+                persona_entries = [personas.next()]
 
+        for p_idx, (pid, preface, traits) in enumerate(persona_entries):
+            pred_idx, scores = runner.score_mc(q, options, preface=preface)
+            is_correct = int(pred_idx == int(gold))
+            correct += is_correct
+            total += 1
+            results.append({
+                "example_id": example_id,
+                "persona_idx": p_idx,
+                "pid": pid,
+                "persona_traits": traits if (personas and personas.enabled) else {},
+                "question": q,
+                "choices": options,
+                "pred_idx": pred_idx,
+                "gold_idx": int(gold),
+                "correct": is_correct,
+                "scores": scores,
+            })
 
     accuracy = (correct / total) if total else 0.0
     meta = {"dataset": "truthful_qa", "model": runner.name, "accuracy": accuracy, "num": total, "examples": results}
     if personas and personas.enabled:
         meta["persona_mode"] = personas.mode
         meta["persona_type"] = personas.persona_type
+        meta["persona_sweep"] = bool(sweep and sweep_k > 0)
+        meta["persona_sweep_k"] = sweep_k
+        meta["persona_sweep_mode"] = sweep_mode
     return meta
 
 
-def evaluate_bbq_with_runner(runner, limit: int = None, personas: Optional[PersonaProvider] = None) -> Dict:
+def evaluate_bbq_with_runner(runner, limit: int = None, personas: Optional[PersonaProvider] = None,
+                             sweep: bool = False, sweep_k: int = 0, sweep_mode: str = "random", seed: int = 0) -> Dict:
     ds = load_all_datasets().get("bbq")
     if ds is None:
         return {"dataset": "bbq", "error": "load_failed"}
     hfds = ds["data"]
+    # Deterministic aggregation across subsets by sorted key name if dict-like
     if isinstance(hfds, dict):
         dataset = []
-        for subset_ds in hfds.values():
-            dataset.extend(list(subset_ds))
+        for key in sorted(hfds.keys()):
+            subset_ds = hfds[key]
+            try:
+                dataset.extend(list(subset_ds))
+            except Exception:
+                # Handle HF DatasetDict with splits
+                for split in ["validation", "test", "train"]:
+                    if split in subset_ds:
+                        dataset.extend(list(subset_ds[split]))
+                        break
     else:
         dataset = list(hfds["train"] if "train" in hfds else hfds[next(iter(hfds.keys()))])
+
+    idxs = _sample_indices(len(dataset), limit, seed=seed + 22)
 
     results = []
     correct = 0
     total = 0
 
-    for i, ex in enumerate(dataset):
-        if limit is not None and i >= limit:
-            break
+    for j, i in enumerate(tqdm(idxs, total=len(idxs), desc=f"BBQ [{runner.name}]") ):
+        ex = dataset[i]
         q, options, gold = _bbq_mc_from_row(ex)
         if not options:
             continue
+        example_id = i
 
-        pid, preface, traits = personas.next() if personas else ("", "", {})
+        persona_entries: List[Tuple[str, str, Dict[str, str]]] = [("", "", {})]
+        if personas and personas.enabled:
+            if sweep and sweep_k > 0:
+                persona_entries = personas.pick_k(sweep_k, sweep_mode, seed=seed + 2000 + i, start_index=j)
+            else:
+                persona_entries = [personas.next()]
 
-        pred_idx, scores = runner.score_mc(q, options, preface=preface)
-        is_correct = int(pred_idx == int(gold))
-
-        correct += is_correct
-        total += 1
-        results.append({
-            "question": q,
-            "choices": options,
-            "pred_idx": pred_idx,
-            "gold_idx": int(gold),
-            "correct": is_correct,
-            "scores": scores,
-            **({"pid": pid, "persona_traits": traits} if personas and personas.enabled else {}),
-        })
+        for p_idx, (pid, preface, traits) in enumerate(persona_entries):
+            pred_idx, scores = runner.score_mc(q, options, preface=preface)
+            is_correct = int(pred_idx == int(gold))
+            correct += is_correct
+            total += 1
+            results.append({
+                "example_id": example_id,
+                "persona_idx": p_idx,
+                "pid": pid,
+                "persona_traits": traits if (personas and personas.enabled) else {},
+                "question": q,
+                "choices": options,
+                "pred_idx": pred_idx,
+                "gold_idx": int(gold),
+                "correct": is_correct,
+                "scores": scores,
+            })
 
     accuracy = (correct / total) if total else 0.0
     meta = {"dataset": "bbq", "model": runner.name, "accuracy": accuracy, "num": total, "examples": results}
     if personas and personas.enabled:
         meta["persona_mode"] = personas.mode
         meta["persona_type"] = personas.persona_type
+        meta["persona_sweep"] = bool(sweep and sweep_k > 0)
+        meta["persona_sweep_k"] = sweep_k
+        meta["persona_sweep_mode"] = sweep_mode
     return meta
 
 
-def evaluate_normad_with_runner(runner, limit: int = None, personas: Optional[PersonaProvider] = None) -> Dict:
+def evaluate_normad_with_runner(runner, limit: int = None, personas: Optional[PersonaProvider] = None,
+                                sweep: bool = False, sweep_k: int = 0, sweep_mode: str = "random", seed: int = 0) -> Dict:
     ds = load_all_datasets().get("normad")
     if ds is None:
         return {"dataset": "normad", "error": "load_failed"}
@@ -255,39 +332,52 @@ def evaluate_normad_with_runner(runner, limit: int = None, personas: Optional[Pe
     if not labels:
         labels = ["LabelA", "LabelB"]
 
+    idxs = _sample_indices(len(dataset), limit, seed=seed + 33)
+
     results = []
     correct = 0
     total = 0
 
-    for i, ex in enumerate(dataset):
-        if limit is not None and i >= limit:
-            break
+    for j, i in enumerate(tqdm(idxs, total=len(idxs), desc=f"NormAd [{runner.name}]") ):
+        ex = dataset[i]
         q, options, gold = _normad_mc_from_row(ex, labels)
         if not options:
             continue
+        example_id = i
 
-        pid, preface, traits = personas.next() if personas else ("", "", {})
+        persona_entries: List[Tuple[str, str, Dict[str, str]]] = [("", "", {})]
+        if personas and personas.enabled:
+            if sweep and sweep_k > 0:
+                persona_entries = personas.pick_k(sweep_k, sweep_mode, seed=seed + 3000 + i, start_index=j)
+            else:
+                persona_entries = [personas.next()]
 
-        pred_idx, scores = runner.score_mc(q, options, preface=preface)
-        is_correct = int(pred_idx == int(gold))
-
-        correct += is_correct
-        total += 1
-        results.append({
-            "question": q,
-            "choices": options,
-            "pred_idx": pred_idx,
-            "gold_idx": int(gold),
-            "correct": is_correct,
-            "scores": scores,
-            **({"pid": pid, "persona_traits": traits} if personas and personas.enabled else {}),
-        })
+        for p_idx, (pid, preface, traits) in enumerate(persona_entries):
+            pred_idx, scores = runner.score_mc(q, options, preface=preface)
+            is_correct = int(pred_idx == int(gold))
+            correct += is_correct
+            total += 1
+            results.append({
+                "example_id": example_id,
+                "persona_idx": p_idx,
+                "pid": pid,
+                "persona_traits": traits if (personas and personas.enabled) else {},
+                "question": q,
+                "choices": options,
+                "pred_idx": pred_idx,
+                "gold_idx": int(gold),
+                "correct": is_correct,
+                "scores": scores,
+            })
 
     accuracy = (correct / total) if total else 0.0
     meta = {"dataset": "normad", "model": runner.name, "accuracy": accuracy, "num": total, "examples": results}
     if personas and personas.enabled:
         meta["persona_mode"] = personas.mode
         meta["persona_type"] = personas.persona_type
+        meta["persona_sweep"] = bool(sweep and sweep_k > 0)
+        meta["persona_sweep_k"] = sweep_k
+        meta["persona_sweep_mode"] = sweep_mode
     return meta
 
 
@@ -296,19 +386,30 @@ def main():
     parser = argparse.ArgumentParser(description="Run MC benchmarks (TruthfulQA, BBQ) using ModelRegistry")
     parser.add_argument("--models", nargs="+", required=True, help="Model identifiers or registry names")
     parser.add_argument("--datasets", nargs="+", default=["truthful_qa", "bbq", "normad"], help="Datasets to run (choose from: truthful_qa, bbq, normad)")
-    parser.add_argument("--limit", type=int, default=None, help="Limit examples per dataset")
+    parser.add_argument("--limit", type=int, default=None, help="Limit examples per dataset (sampled deterministically)")
     parser.add_argument("--output", type=str, default="benchmark_results.json", help="Output JSON path")
     parser.add_argument("--with-persona", action="store_true", help="Enable persona-prefaced prompts")
     parser.add_argument("--mtpa", type=str, default=None, help="Path to MTPA json/jsonl")
     parser.add_argument("--persona-type", type=str, default="bullets", choices=["bullets", "json", "oneliner"], help="Persona rendering style")
-    parser.add_argument("--persona-mode", type=str, default="cycle", choices=["first", "cycle", "random"], help="How to assign personas across examples")
+    parser.add_argument("--persona-mode", type=str, default="cycle", choices=["first", "cycle", "random"], help="How to assign personas across examples (non-sweep mode)")
     parser.add_argument("--persona-limit", type=int, default=None, help="Use only first N personas (after load)")
-    parser.add_argument("--seed", type=int, default=0, help="Random seed for persona assignment (random mode)")
+    parser.add_argument("--seed", type=int, default=0, help="Random seed for persona and question sampling")
+    # Persona sweep flags
+    parser.add_argument("--persona-sweep", action="store_true", help="Evaluate each question with multiple personas")
+    parser.add_argument("--persona-sweep-k", type=int, default=0, help="Number of personas per question when sweep is enabled")
+    parser.add_argument("--persona-sweep-mode", type=str, default="random", choices=["first", "cycle", "random"], help="Selection mode for personas per question in sweep")
+    # API registration convenience
+    parser.add_argument("--openai-models", nargs="*", default=[], help="OpenAI model ids to register (e.g., gpt-4o)")
+    parser.add_argument("--gemini-models", nargs="*", default=[], help="Gemini model ids to register (e.g., gemini-2.0-flash)")
 
     args = parser.parse_args()
 
     registry = ModelRegistry()
-    registry.register_gemini("gemini-2.0-flash", "gemini-2.0-flash")
+    # Register API models if requested
+    for mid in args.openai_models:
+        registry.register_openai(mid, mid)
+    for mid in args.gemini_models:
+        registry.register_gemini(mid, mid)
 
     personas_provider = None
     if args.with_persona and args.mtpa:
@@ -327,17 +428,20 @@ def main():
         if "truthful_qa" in args.datasets:
             print(f"Running TruthfulQA on {runner.name}..." f"{' with personas' if personas_provider else ''}")
             results[model_name]["truthful_qa"] = evaluate_truthfulqa_with_runner(
-                runner, args.limit, personas=personas_provider
+                runner, args.limit, personas=personas_provider, sweep=args.persona_sweep,
+                sweep_k=args.persona_sweep_k, sweep_mode=args.persona_sweep_mode, seed=args.seed
             )
         if "bbq" in args.datasets:
             print(f"Running BBQ on {runner.name}..." f"{' with personas' if personas_provider else ''}")
             results[model_name]["bbq"] = evaluate_bbq_with_runner(
-                runner, args.limit, personas=personas_provider
+                runner, args.limit, personas=personas_provider, sweep=args.persona_sweep,
+                sweep_k=args.persona_sweep_k, sweep_mode=args.persona_sweep_mode, seed=args.seed
             )
         if "normad" in args.datasets:
             print(f"Running Normad on {runner.name}..." f"{' with personas' if personas_provider else ''}")
             results[model_name]["normad"] = evaluate_normad_with_runner(
-                runner, args.limit, personas=personas_provider
+                runner, args.limit, personas=personas_provider, sweep=args.persona_sweep,
+                sweep_k=args.persona_sweep_k, sweep_mode=args.persona_sweep_mode, seed=args.seed
             )
 
 
